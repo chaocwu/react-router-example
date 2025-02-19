@@ -3,11 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "react-router build",
-    "db:generate": "dotenv -- drizzle-kit generate",
+    "build": "NODE_ENV=production react-router build",
+    "db:generate": "dotenvx run -f .dev.vars -- drizzle-kit generate",
     "db:migrate": "wrangler d1 migrations apply --local DB",
-    "db:migrate-production": "dotenv -- drizzle-kit migrate",
-    "deploy": "npm run build && wrangler deploy",
+    "db:migrate:production": "dotenvx run -f .dev.vars -- drizzle-kit migrate",
+    "deploy": "wrangler deploy",
     "dev": "react-router dev",
     "start": "wrangler dev",
     "typecheck": "react-router typegen && tsc -b"
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241112.0",
+    "@dotenvx/dotenvx": "^1.36.0",
     "@react-router/dev": "^7.2.0",
     "@tailwindcss/vite": "^4.0.0",
     "@types/node": "^20",
